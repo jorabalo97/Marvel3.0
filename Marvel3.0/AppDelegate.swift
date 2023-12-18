@@ -2,18 +2,21 @@
 //  AppDelegate.swift
 //  Marvel3.0
 //
-//  Created by Jorge Abalo Dieste on 15/12/23.
+//  Created by Jorge Abalo Dieste
 //
+
 
 import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Thread.sleep(forTimeInterval: 3)
         return true
     }
 
@@ -33,4 +36,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

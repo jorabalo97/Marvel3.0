@@ -2,8 +2,9 @@
 //  SceneDelegate.swift
 //  Marvel3.0
 //
-//  Created by Jorge Abalo Dieste on 15/12/23.
+//  Created by Jorge Abalo Dieste 
 //
+
 
 import UIKit
 
@@ -16,6 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
+        let navigationController = StoryboardUtils.getNavigationController()
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 
@@ -49,4 +54,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-
