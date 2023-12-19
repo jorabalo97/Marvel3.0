@@ -32,11 +32,14 @@ class CharacterDetailViewModel {
     //Request de los comics de la API
     func getRequestCharacterComicsAPI() {
         
+        let baseUrl: String = "https://gateway.marvel.com:443/v1/public/characters?limit=50&offset=0&apikey=4da961812496c30cf73ed692b494f315"
+        let limit: Int = 50
+        let offset: Int = 0
         let ts = String(Int(Date().timeIntervalSince1970))
         let hash = Utils.md5Hash("\(ts)\(privateKey)\(publicKey)")
         let url = "\(baseUrl)characters/\(self.charcterId ?? "")/comics?ts=\(ts)&apikey=\(publicKey)&hash=\(hash)"
         
-        MarvelAPIService.init().getRequest(url: url, completion: { jsonData, error, statuscode in
+        MarvelAPIService.init().getRequestWithPagination(url: url, offset: offset, limit: limit, completion: { jsonData, error, statuscode  in
             
             if let error = error {
                 self.delegate?.getError(error.localizedDescription)

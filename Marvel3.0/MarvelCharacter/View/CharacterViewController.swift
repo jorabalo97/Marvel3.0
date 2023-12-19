@@ -6,43 +6,43 @@
 //
 
 
-
 import UIKit
 
 class CharacterViewController: UIViewController {
     
-    @IBOutlet weak var SearchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var characterTableView: UITableView!
-    var charcterViewModel = CharacterViewModel()
-    
+
+    var characterViewModel = CharacterViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       
+        setupUI()
+        fetchData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationItem.title = "Characters"
-        
-        charcterViewModel.delegate = self
-        charcterViewModel.getCharacterList()
+    private func setupUI() {
+        characterTableView.delegate = self
+        characterTableView.dataSource = self
+    }
+    
+    private func fetchData() {
+        characterViewModel.delegate = self
+        characterViewModel.getCharacterList(offset: 0, limit: 10)
     }
     
 }
 
-// UITableViewDelegate y UITableViewDataSource
 extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.charcterViewModel.characterDataModel?.data?.results?.count ?? 0
+        return characterViewModel.characterDataModel?.data?.results?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: StoryboardUtils.CellIdentifier.characterCardCell) as? CharacterTableViewCell {
-            cell.renderDataToCell(self.charcterViewModel.characterDataModel?.data?.results?[indexPath.row])
+        if let cell = tableView.dequeueReusableCell(withIdentifier: StoryboardUtils.CellIdentifier.characterCardCell, for: indexPath) as? CharacterTableViewCell {
+            cell.renderDataToCell(characterViewModel.characterDataModel?.data?.results?[indexPath.row])
             return cell
         }
         
@@ -58,22 +58,19 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if let viewControllerInstance = StoryboardUtils.getCharacterDetailViewController() {
-            viewControllerInstance.characterModel = self.charcterViewModel.characterDataModel?.data?.results?[indexPath.row]
-            viewControllerInstance.detailViewModel = CharacterDetailViewModel.init(id: "\(self.charcterViewModel.characterDataModel?.data?.results?[indexPath.row].id ?? 0)")
+            viewControllerInstance.characterModel = characterViewModel.characterDataModel?.data?.results?[indexPath.row]
+            viewControllerInstance.detailViewModel = CharacterDetailViewModel(id: "\(characterViewModel.characterDataModel?.data?.results?[indexPath.row].id ?? 0)")
             self.navigationController?.present(viewControllerInstance, animated: true, completion: nil)
-            
         }
     }
 }
 
-
-//ViewModel Protocol
-extension CharacterViewController: characterViewModelProtocol {
-    
+// Implementación del protocolo CharacterViewModelDelegate
+extension CharacterViewController: CharacterViewModelDelegate {
     func fetchListOfMarvelCharacters() {
-        self.characterTableView.reloadData()
+        
+        characterTableView.reloadData()
     }
     
     func getErrorFrom(_ error: String) {
@@ -83,5 +80,4 @@ extension CharacterViewController: characterViewModelProtocol {
     func getErrorCodeFromAPIResponse() {
         Utils().showAlertView(title: ErrorString.error.rawValue, messsage: ErrorString.serverMsg.rawValue)
     }
-    
 }
