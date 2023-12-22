@@ -10,21 +10,34 @@ import UIKit
 
 
 //  Decoder
+
+struct Comic {
+    var title: String
+    var issueNumber: Int?
+    var thumbnail: ThumbnailUrl?
+    let variantDescription: String?
+}
 struct ComicsDataModel: Decodable {
+    
     
     var data: ComicsResultModel?
 }
 
 struct ComicsResultModel: Decodable {
     
+    
     var results: [ComicsModel]?
     
 }
-
 struct ComicsModel: Decodable {
     
     var title: String?
     var issueNumber: Int?
     var thumbnail: ThumbnailUrl?
     
+}
+
+
+struct MarvelResponse : Decodable {
+    var result: ComicsModel? 
 }

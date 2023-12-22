@@ -13,7 +13,6 @@ class ComicsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var issueNumberLabel: UILabel!
     @IBOutlet weak var thumbnailImage: MarvelImageView!
-    
     //Render data
     func renderDataToComicCell(_ model: ComicsModel?) {
         
@@ -33,5 +32,6 @@ class ComicsCollectionViewCell: UICollectionViewCell {
         self.thumbnailImage.downloadImageFrom(urlString: urlString, imageMode: .scaleAspectFill)
         
     }
+    
     
 }
