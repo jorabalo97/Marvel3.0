@@ -53,7 +53,7 @@ class CharacterDetailViewController: UIViewController {
             }
         }
     }
-
+    
 
 
 
@@ -84,6 +84,12 @@ class CharacterDetailViewController: UIViewController {
 // CharacterDetailViewModelProtocol
 extension CharacterDetailViewController: CharacterDetailViewModelProtocol {
     
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            // Llama al método de búsqueda en tu ViewModel cuando el texto de búsqueda cambia.
+            self.detailViewModel?.searchComics(with: searchText)
+        }
+    
+
     func getCharacterDetails() {
         self.setData()
         self.comicsCollectionView.reloadData()
