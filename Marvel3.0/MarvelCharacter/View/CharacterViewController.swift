@@ -9,7 +9,7 @@
 
 import UIKit
 
-class CharacterViewController: UIViewController {
+class CharacterViewController: UIViewController, UISearchBarDelegate  {
     
     @IBOutlet weak var SearchBar: UISearchBar!
     @IBOutlet weak var characterTableView: UITableView!
@@ -17,7 +17,7 @@ class CharacterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        SearchBar.delegate = self
        
     }
     
@@ -30,6 +30,18 @@ class CharacterViewController: UIViewController {
         charcterViewModel.getCharacterList()
     }
     
+}
+
+
+extension CharacterViewController {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // Llama al método de búsqueda en tu ViewModel cuando el texto de búsqueda cambia.
+        charcterViewModel.searchCharacters(with: searchText)
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // Puedes agregar lógica adicional si es necesario cuando se presiona el botón de búsqueda.
+    }
 }
 
 // UITableViewDelegate y UITableViewDataSource
@@ -71,6 +83,7 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
 
 //ViewModel Protocol
 extension CharacterViewController: characterViewModelProtocol {
+    
     
     func fetchListOfMarvelCharacters() {
         self.characterTableView.reloadData()

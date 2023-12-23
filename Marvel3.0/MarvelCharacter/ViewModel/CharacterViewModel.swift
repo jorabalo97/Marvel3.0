@@ -26,6 +26,32 @@ class CharacterViewModel {
     private var privateKey = Utils.getAPIKeys()[KeyString.privateKey.rawValue] ?? ""
 
 
+    
+   
+        func searchCharacters(with searchText: String) {
+               let ts = String(Int(Date().timeIntervalSince1970))
+               let hash = Utils.md5Hash("\(ts)\(privateKey)\(publicKey)")
+               let url = "\(baseUrl)characters?ts=\(ts)&apikey=\(publicKey)&hash=\(hash)&nameStartsWith=\(searchText)"
+
+               MarvelAPIService.init().getRequest(url: url, completion: { jsonData, error, statuscode in
+                   if let error = error {
+                       self.delegate?.getErrorFrom(error.localizedDescription)
+                       return
+                   }
+
+                   if let statuscode = statuscode {
+                       if statuscode == 200, let responseData = jsonData {
+                           let jsonDecoder = JSONDecoder()
+                           self.characterDataModel = try? jsonDecoder.decode(CharacterDataModel.self, from: responseData)
+                           self.delegate?.fetchListOfMarvelCharacters()
+                       } else {
+                           self.delegate?.getErrorCodeFromAPIResponse()
+                       }
+                   }
+               })
+           }
+    
+
     //API requeste lista de personajes
     func getCharacterList() {
         let timeStamp = String(Int(Date().timeIntervalSinceNow))

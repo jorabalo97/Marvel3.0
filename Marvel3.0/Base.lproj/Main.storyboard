@@ -330,7 +330,7 @@
         <!--Comic List View Controller-->
         <scene sceneID="fSF-bx-Dqr">
             <objects>
-                <viewController id="DXw-WO-JGg" customClass="ComicListViewController" customModule="Marvel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="DXw-WO-JGg" customClass="ComicListViewController" customModule="Marvel3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y3u-B5-5kr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -393,7 +393,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uNo-dD-euq"/>
+        <segue reference="3ll-Gj-PuZ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book" catalog="system" width="128" height="99"/>
