@@ -18,6 +18,7 @@ protocol CharacterDetailViewModelProtocol: AnyObject {
 class CharacterDetailViewModel {
     
     // Variables
+    var seriesDataModel: ComicsDataModel?
     var comicsDataModel: ComicsDataModel?
     weak var delegate: CharacterDetailViewModelProtocol?
     private var publicKey = Utils.getAPIKeys()[KeyString.publicKey.rawValue] ?? ""
@@ -79,4 +80,30 @@ class CharacterDetailViewModel {
             }
         })
     }
-}
+    
+    func getRequestCharacterSeriesAPI() {
+           let ts = String(Int(Date().timeIntervalSince1970))
+           let hash = Utils.md5Hash("\(ts)\(privateKey)\(publicKey)")
+           let url = "\(baseUrl)characters/\(self.charcterId ?? "")/series?ts=\(ts)&apikey=\(publicKey)&hash=\(hash)"
+           
+           MarvelAPIService.init().getRequest(url: url, completion: { jsonData, error, statuscode in
+               if let error = error {
+                   self.delegate?.getError(error.localizedDescription)
+                   return
+               }
+               
+               if let statuscode = statuscode {
+                   if statuscode == 200, let responseData = jsonData {
+                       let jsonDecoder = JSONDecoder()
+                       self.seriesDataModel = try? jsonDecoder.decode(ComicsDataModel.self, from: responseData)
+                       self.delegate?.getCharacterDetails()
+                   } else {
+                       self.delegate?.getErrorCodeFromAPIResponse()
+                   }
+               }
+           })
+       }
+    }
+
+
+

@@ -20,26 +20,42 @@ class CharacterDetailViewController: UIViewController {
     @IBOutlet var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var flowLayout: UICollectionViewFlowLayout!
    
-   
+    var isViewingComics: Bool = true
     var detailViewModel: CharacterDetailViewModel?
     var characterModel: CharacterModel?
     var comicModel: ComicsModel?
     
-   
-    
+  
+    var segmentedControl: UISegmentedControl!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.detailViewModel?.getRequestCharacterComicsAPI()
         
         collectionViewHeightConstraint.constant = 300
                flowLayout.itemSize = CGSize(width: 170, height: 300)
                
-      
+        segmentedControl = UISegmentedControl(items: ["Comics", "Series"])
+           segmentedControl.selectedSegmentIndex = 0
+           segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
               
-        
-       // comicsCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        view.addSubview(segmentedControl)
+        detailViewModel?.getRequestCharacterComicsAPI()
+      
         collectionViewHeightConstraint.constant = 300
         flowLayout.itemSize = CGSize(width: 170, height: 300)
         
+    }
+    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        isViewingComics = sender.selectedSegmentIndex == 0
+        
+        descriptionLabel.text = isViewingComics ? "Comics" : "Series"
+
+        if isViewingComics {
+            detailViewModel?.getRequestCharacterComicsAPI()
+        } else {
+            detailViewModel?.getRequestCharacterSeriesAPI()
+        }
     }
     
     
@@ -50,24 +66,24 @@ class CharacterDetailViewController: UIViewController {
                let selectedComic = sender as? Comic {
                 // Pasa el cómic seleccionado
                 destinationVC.comicModel = ComicsModel(title: selectedComic.title, issueNumber: selectedComic.issueNumber, thumbnail: selectedComic.thumbnail)
+                destinationVC.comicModel = ComicsModel(title: selectedComic.title)
             }
         }
     }
-    
-
-
-
-
 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.detailViewModel?.delegate = self
-        self.detailViewModel?.getRequestCharacterComicsAPI()
+        if isViewingComics {
+              self.detailViewModel?.getRequestCharacterComicsAPI()
+          } else {
+              self.detailViewModel?.getRequestCharacterSeriesAPI()
+          }
     }
     
-    // set Data de Api
+    // setData desde  Api
     func setData() {
         guard let characterModel = characterModel else {
             return
@@ -85,7 +101,7 @@ class CharacterDetailViewController: UIViewController {
 extension CharacterDetailViewController: CharacterDetailViewModelProtocol {
     
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            // Llama al método de búsqueda en tu ViewModel cuando el texto de búsqueda cambia.
+           
             self.detailViewModel?.searchComics(with: searchText)
         }
     
@@ -113,19 +129,23 @@ extension CharacterDetailViewController: UICollectionViewDataSource, UICollectio
         return self.detailViewModel?.comicsDataModel?.data?.results?.count ?? 0
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Obtén el cómic seleccionado
+       
         let selectedComic = self.detailViewModel?.comicsDataModel?.data?.results?[indexPath.row]
 
-        // Inicia la transición a ComicListViewController
+      
         performSegue(withIdentifier: "transicionDesdeDetalleALista", sender: selectedComic)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryboardUtils.CellIdentifier.comicCardCell, for: indexPath) as? ComicsCollectionViewCell {
-            cell.renderDataToComicCell(self.detailViewModel?.comicsDataModel?.data?.results?[indexPath.row])
-            return cell
-        }
+            if isViewingComics {
+                       cell.renderDataToCell(self.detailViewModel?.comicsDataModel?.data?.results?[indexPath.row])
+                   } else {
+                       cell.renderDataToCell(self.detailViewModel?.seriesDataModel?.data?.results?[indexPath.row])
+                   }
+                   return cell
+               }
         
         return UICollectionViewCell()
     }
