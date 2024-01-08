@@ -34,6 +34,9 @@
 		B17758672B346349002C4595 /* HashExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17758662B346349002C4595 /* HashExtension.swift */; };
 		B190374A2B4B75B10048845B /* SeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19037492B4B75B10048845B /* SeriesModel.swift */; };
 		B190374C2B4B75CD0048845B /* SeriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B190374B2B4B75CD0048845B /* SeriesCollectionViewCell.swift */; };
+		B190374F2B4BFE700048845B /* SeriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B190374E2B4BFE700048845B /* SeriesListViewModel.swift */; };
+		B19037512B4BFE7C0048845B /* SeriesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19037502B4BFE7C0048845B /* SeriesListViewController.swift */; };
+		B19037532B4BFE8A0048845B /* SeriesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19037522B4BFE8A0048845B /* SeriesListCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,9 @@
 		B17758662B346349002C4595 /* HashExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashExtension.swift; sourceTree = "<group>"; };
 		B19037492B4B75B10048845B /* SeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesModel.swift; sourceTree = "<group>"; };
 		B190374B2B4B75CD0048845B /* SeriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		B190374E2B4BFE700048845B /* SeriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesListViewModel.swift; sourceTree = "<group>"; };
+		B19037502B4BFE7C0048845B /* SeriesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesListViewController.swift; sourceTree = "<group>"; };
+		B19037522B4BFE8A0048845B /* SeriesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesListCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,7 @@
 		B13823CF2B2C5EF900F7E5C6 /* Marvel3.0 */ = {
 			isa = PBXGroup;
 			children = (
+				B190374D2B4BFE610048845B /* SeriesListView */,
 				B177585F2B3462BD002C4595 /* ComicsListView */,
 				B13824302B2C64D500F7E5C6 /* Utils */,
 				B13824172B2C614700F7E5C6 /* MarvelAPIService */,
@@ -267,6 +274,16 @@
 				B17758662B346349002C4595 /* HashExtension.swift */,
 			);
 			path = ComicsListView;
+			sourceTree = "<group>";
+		};
+		B190374D2B4BFE610048845B /* SeriesListView */ = {
+			isa = PBXGroup;
+			children = (
+				B190374E2B4BFE700048845B /* SeriesListViewModel.swift */,
+				B19037502B4BFE7C0048845B /* SeriesListViewController.swift */,
+				B19037522B4BFE8A0048845B /* SeriesListCoordinator.swift */,
+			);
+			path = SeriesListView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,6 +421,7 @@
 				B138243A2B2C660400F7E5C6 /* ImageDownloader.swift in Sources */,
 				B13824252B2C61E100F7E5C6 /* CharacterViewModel.swift in Sources */,
 				B13824212B2C61C300F7E5C6 /* CharacterViewController.swift in Sources */,
+				B19037532B4BFE8A0048845B /* SeriesListCoordinator.swift in Sources */,
 				B13824272B2C61F800F7E5C6 /* ComicsModel.swift in Sources */,
 				B138241F2B2C61AF00F7E5C6 /* CharacterModel.swift in Sources */,
 				B13824322B2C64EA00F7E5C6 /* Utils.swift in Sources */,
@@ -412,10 +430,12 @@
 				B13823D12B2C5EF900F7E5C6 /* AppDelegate.swift in Sources */,
 				B138242D2B2C624400F7E5C6 /* CharacterDetailViewModel.swift in Sources */,
 				B138242F2B2C626100F7E5C6 /* MarvelAPIService.swift in Sources */,
+				B19037512B4BFE7C0048845B /* SeriesListViewController.swift in Sources */,
 				B17758672B346349002C4595 /* HashExtension.swift in Sources */,
 				B13823D32B2C5EF900F7E5C6 /* SceneDelegate.swift in Sources */,
 				B17758652B346313002C4595 /* ComicListCoordinator.swift in Sources */,
 				B190374A2B4B75B10048845B /* SeriesModel.swift in Sources */,
+				B190374F2B4BFE700048845B /* SeriesListViewModel.swift in Sources */,
 				B13824292B2C621600F7E5C6 /* CharacterDetailViewController.swift in Sources */,
 				B138242B2B2C623500F7E5C6 /* ComicsCollectionViewCell.swift in Sources */,
 				B17758632B3462F2002C4595 /* ComicListViewController.swift in Sources */,
