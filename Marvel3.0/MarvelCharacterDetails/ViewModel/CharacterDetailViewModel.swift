@@ -18,6 +18,7 @@ protocol CharacterDetailViewModelProtocol: AnyObject {
 class CharacterDetailViewModel {
     
     // Variables
+    var seriesDataModel: ComicsDataModel?
     var comicsDataModel: ComicsDataModel?
     weak var delegate: CharacterDetailViewModelProtocol?
     private var publicKey = Utils.getAPIKeys()[KeyString.publicKey.rawValue] ?? ""
@@ -28,6 +29,31 @@ class CharacterDetailViewModel {
     init(id: String) {
         self.charcterId = id
     }
+    
+    func searchComics(with searchText: String) {
+        // Construir la URL de búsqueda utilizando el término de búsqueda (searchText)
+        let ts = String(Int(Date().timeIntervalSince1970))
+        let hash = Utils.md5Hash("\(ts)\(privateKey)\(publicKey)")
+        let url = "\(baseUrl)characters/\(self.charcterId ?? "")/comics?ts=\(ts)&apikey=\(publicKey)&hash=\(hash)&titleStartsWith=\(searchText)"
+        
+        MarvelAPIService.init().getRequest(url: url, completion: { jsonData, error, statuscode in
+            if let error = error {
+                self.delegate?.getError(error.localizedDescription)
+                return
+            }
+            
+            if let statuscode = statuscode {
+                if statuscode == 200, let responseData = jsonData {
+                    let jsonDecoder = JSONDecoder()
+                    self.comicsDataModel = try? jsonDecoder.decode(ComicsDataModel.self, from: responseData)
+                    self.delegate?.getCharacterDetails()
+                } else {
+                    self.delegate?.getErrorCodeFromAPIResponse()
+                }
+            }
+        })
+    }
+
     
     //Request de los comics de la API
     func getRequestCharacterComicsAPI() {
@@ -54,4 +80,30 @@ class CharacterDetailViewModel {
             }
         })
     }
-}
+    
+    func getRequestCharacterSeriesAPI() {
+           let ts = String(Int(Date().timeIntervalSince1970))
+           let hash = Utils.md5Hash("\(ts)\(privateKey)\(publicKey)")
+           let url = "\(baseUrl)characters/\(self.charcterId ?? "")/series?ts=\(ts)&apikey=\(publicKey)&hash=\(hash)"
+           
+           MarvelAPIService.init().getRequest(url: url, completion: { jsonData, error, statuscode in
+               if let error = error {
+                   self.delegate?.getError(error.localizedDescription)
+                   return
+               }
+               
+               if let statuscode = statuscode {
+                   if statuscode == 200, let responseData = jsonData {
+                       let jsonDecoder = JSONDecoder()
+                       self.seriesDataModel = try? jsonDecoder.decode(ComicsDataModel.self, from: responseData)
+                       self.delegate?.getCharacterDetails()
+                   } else {
+                       self.delegate?.getErrorCodeFromAPIResponse()
+                   }
+               }
+           })
+       }
+    }
+
+
+

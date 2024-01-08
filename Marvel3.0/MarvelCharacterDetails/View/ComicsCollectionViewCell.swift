@@ -13,25 +13,27 @@ class ComicsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var issueNumberLabel: UILabel!
     @IBOutlet weak var thumbnailImage: MarvelImageView!
-    
     //Render data
-    func renderDataToComicCell(_ model: ComicsModel?) {
-        
+   
+    func renderDataToCell(_ model: Any?) {
         guard let comicModel = model else {
             return
         }
         
         Utils().setCornerRadius(view: self.thumbnailImage)
-        
-        
-        self.titleLabel.text = comicModel.title
-        if let issueNumber = comicModel.issueNumber {
-            self.issueNumberLabel.text = "Issue number \(String(describing: issueNumber))"
-        }
-        
-        let urlString = (comicModel.thumbnail?.path ?? "") + "." + (comicModel.thumbnail?.imageExtension ?? "")
-        self.thumbnailImage.downloadImageFrom(urlString: urlString, imageMode: .scaleAspectFill)
-        
-    }
-    
-}
+               
+               if let comicModel = model as? ComicsModel {
+                   // Configuración para cómics
+                   self.titleLabel.text = comicModel.title
+                   if let issueNumber = comicModel.issueNumber {
+                       self.issueNumberLabel.text = "Issue number \(issueNumber)"
+                   }
+                   let urlString = (comicModel.thumbnail?.path ?? "") + "." + (comicModel.thumbnail?.imageExtension ?? "")
+                   self.thumbnailImage.downloadImageFrom(urlString: urlString, imageMode: .scaleAspectFill)
+               } else if let seriesModel = model as? SeriesModel {
+                  
+                   self.titleLabel.text = seriesModel.title
+                 
+               }
+           }
+       }
