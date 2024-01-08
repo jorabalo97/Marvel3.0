@@ -1,20 +1,15 @@
-
-
 //
-//  ComicListViewController.swift
+//  SeriesListViewController.swift
 //  Marvel3.0
 //
-//  Created by Jorge Abalo Dieste on 21/12/23.
+//  Created by Jorge Abalo Dieste on 8/1/24.
 //
+
+
+import Foundation
 import UIKit
 
-class ComicListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    
-    var comicModel: ComicsModel?
-    
-    var selectedComicFromDetail: Comic?
-    var comics: [Comic] = []
+class SeriesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     struct MarvelResponse: Codable {
         let code: Int
@@ -23,21 +18,20 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     struct MarvelData: Codable {
-        let results: [Comic]
+        let results: [Series]
     }
     
-    struct Comic: Codable {
+    struct Series: Codable {
         let title: String?
-        let variantDescription: String?
-        
+        let description: String?
     }
+    var series: [Series] = []
+    var viewModel: SeriesListViewModel?
     
-    var viewModel: ComicListViewModel?
-    
-    func fetchMarvelComics(completion: @escaping (Result<[Comic], Error>) -> Void) {
+    func fetchMarvelSeries(completion: @escaping (Result<[Series], Error>) -> Void) {
         let publicKey = "91876cd71efdc7d4d08056257a5dd7bf"
         let privateKey = "4b31ba5c27608c34ec0d47763e976f32001d59e6"
-        let baseURL = "https://gateway.marvel.com/v1/public/comics"
+        let baseURL = "https://gateway.marvel.com/v1/public/series"
         
         // Construir la URL con las claves y otros parámetros
         let timestamp = String(Date().timeIntervalSince1970)
@@ -65,11 +59,11 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
                         }
                         
                         // Acceder a la matriz de cómics dentro de la respuesta
-                        let comics = marvelResponse.data.results
+                        let series = marvelResponse.data.results
                         
                         // Actualizar la interfaz de usuario en el hilo principal
                         DispatchQueue.main.async {
-                            completion(.success(comics))
+                            completion(.success(series))
                         }
                     } catch {
                         print("Error decoding JSON: \(error)")
@@ -85,50 +79,43 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
             completion(.failure(error))
         }
     }
-    func updateUI(with comics: [Comic]) {
-        self.comics = comics
+    func updateUI(with series: [Series]) {
+        self.series = series
         DispatchQueue.main.async {
-            self.itemsTable.reloadData()
+            self.seriesTable.reloadData()
         }
     }
     
-    @IBOutlet weak var itemsTable: UITableView!
+    @IBOutlet weak var seriesTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        fetchMarvelComics { result in
+        fetchMarvelSeries { result in
             switch result {
-            case .success(let comics):
+            case .success(let series):
                 // Procesa los cómics y actualiza la interfaz de usuario
-                self.updateUI(with: comics)
+                self.updateUI(with: series)
             case .failure(let error):
                 print("Error: \(error)")
             }
         }
-        itemsTable.dataSource = self
-        itemsTable.delegate = self
-        itemsTable.reloadData()
-        
-        if let selectedComic = selectedComicFromDetail {
-            
-            print("Cómic seleccionado desde CharacterDetailViewController: \(selectedComic.title ?? "")")
-        }
+        seriesTable.dataSource = self
+        seriesTable.delegate = self
+        seriesTable.reloadData()
     }
     
     
     // MARK: - UITableViewDataSource Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        comics.count
+        series.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = itemsTable.dequeueReusableCell(withIdentifier: "itemCell" , for : indexPath)
-        let comic = comics[indexPath.row]
-        cell.textLabel?.text = comic.title
-        cell.detailTextLabel?.text = comic.variantDescription
-        cell.imageView?.image = UIImage(systemName: "book")
+        let cell = seriesTable.dequeueReusableCell(withIdentifier: "serieCell" , for : indexPath)
+        let series = series[indexPath.row]
+        cell.textLabel?.text = series.title
+        cell.detailTextLabel?.text = series.description
+        cell.imageView?.image = UIImage(systemName: "film.circle.fill")
         return cell
     }
     
@@ -137,21 +124,22 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "vistaDeDetalle", sender: self)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "vistaDeDetalle" {
-            if let indexPath = itemsTable.indexPathForSelectedRow,
-               let destinationVC = segue.destination as? CharacterDetailViewController {
-                // Obtén el cómic seleccionado
-                let selectedComic = comics[indexPath.row]
-                
-                // Asigna el cómic al CharacterDetailViewController
-                destinationVC.comicModel = ComicsModel(title: selectedComic.title)
-            }
-        }
-    }
-    
-    
-    
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == "vistaSerie" {
+    //            if let indexPath = tableView.indexPathForSelectedRow,
+    //               let destinationVC = segue.destination as? SeriesViewController {
+    //             // AQUÍ PASAMOS LOS DATOS QUE QUEREMOS A LA OTRA VISTA
+    //                destinationVC.dato = datos[indexPath.row]
+    //            }
+    //        }
+    //        if segue.identifier == "vistaAuthor" {
+    //            if let indexPath = tableView.indexPathForSelectedRow,
+    //               let destinationVC = segue.destination as? AuthorViewController {
+    //             // AQUÍ PASAMOS LOS DATOS QUE QUEREMOS A LA OTRA VISTA
+    //                destinationVC.dato = datos[indexPath.row]
+    //            }
+    //        }
+    //    }
     
 }
+
