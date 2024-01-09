@@ -303,7 +303,7 @@
                         <outlet property="marvelImageView" destination="vJi-l4-X72" id="9H9-D7-Z37"/>
                         <outlet property="titleLabel" destination="fBd-MA-Su6" id="5YR-9y-DW8"/>
                         <segue destination="DXw-WO-JGg" kind="show" identifier="transicionDesdeDetalleALista" id="3ll-Gj-PuZ"/>
-                        <segue destination="6eg-jh-N0D" kind="showDetail" id="6Tn-GJ-CIp"/>
+                        <segue destination="6eg-jh-N0D" kind="showDetail" identifier="transicionDesdeDetalleAListaSeries" id="6Tn-GJ-CIp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -395,7 +395,7 @@
         <!--Series List View Controller-->
         <scene sceneID="gCG-cH-T3F">
             <objects>
-                <viewController id="6eg-jh-N0D" customClass="SeriesListViewController" customModule="Marvel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6eg-jh-N0D" customClass="SeriesListViewController" customModule="Marvel3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vX4-S9-V1a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

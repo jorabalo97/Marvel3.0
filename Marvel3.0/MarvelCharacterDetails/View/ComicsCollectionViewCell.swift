@@ -16,7 +16,7 @@ class ComicsCollectionViewCell: UICollectionViewCell {
     //Render data
    
     func renderDataToCell(_ model: Any?) {
-        guard let comicModel = model else {
+        guard model != nil else {
             return
         }
         

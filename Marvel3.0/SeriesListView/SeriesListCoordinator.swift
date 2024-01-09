@@ -12,11 +12,16 @@ class SeriesListCoordinator {
     init(navigationController: UINavigationController?) {
         self.navigationController = navigationController
     }
+    var selectedCharacter: CharacterModel?
     
     func start(){
         navigationController?.pushViewController(build(), animated: true)
     }
     
+    func configure(with character: CharacterModel?) {
+           selectedCharacter = character
+       }
+
     func build() -> UIViewController {
         let seriesListViewController = SeriesListViewController()
         let seriesListViewModel = SeriesListViewModel(seriesListCoordinator: self, view: seriesListViewController)

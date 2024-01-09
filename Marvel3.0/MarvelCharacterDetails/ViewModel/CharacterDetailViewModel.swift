@@ -31,7 +31,7 @@ class CharacterDetailViewModel {
     }
     
     func searchComics(with searchText: String) {
-        // Construir la URL de búsqueda utilizando el término de búsqueda (searchText)
+        // URL de búsqueda  (searchText)
         let ts = String(Int(Date().timeIntervalSince1970))
         let hash = Utils.md5Hash("\(ts)\(privateKey)\(publicKey)")
         let url = "\(baseUrl)characters/\(self.charcterId ?? "")/comics?ts=\(ts)&apikey=\(publicKey)&hash=\(hash)&titleStartsWith=\(searchText)"

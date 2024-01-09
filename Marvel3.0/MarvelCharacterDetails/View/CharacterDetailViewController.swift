@@ -24,7 +24,7 @@ class CharacterDetailViewController: UIViewController {
     var detailViewModel: CharacterDetailViewModel?
     var characterModel: CharacterModel?
     var comicModel: ComicsModel?
-    
+    var series: [SeriesModel] = []
   
     var segmentedControl: UISegmentedControl!
     override func viewDidLoad() {
@@ -60,6 +60,7 @@ class CharacterDetailViewController: UIViewController {
     
     
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "transicionDesdeDetalleALista" {
             if let destinationVC = segue.destination as? ComicListViewController,
@@ -67,6 +68,12 @@ class CharacterDetailViewController: UIViewController {
                 // Pasa el cómic seleccionado
                 destinationVC.comicModel = ComicsModel(title: selectedComic.title, issueNumber: selectedComic.issueNumber, thumbnail: selectedComic.thumbnail)
                 destinationVC.comicModel = ComicsModel(title: selectedComic.title)
+            }
+        }
+        if segue.identifier == "transicionDesdeDetalleAListaSeries" {
+            if let destinationVC = segue.destination as? SeriesListViewController,
+               let selectedSeries = sender as? SeriesModel {
+                destinationVC.seriesModel = SeriesModel(title: selectedSeries.title)
             }
         }
     }
@@ -120,6 +127,8 @@ extension CharacterDetailViewController: CharacterDetailViewModelProtocol {
     }
     
 }
+
+
 
 // UICollectionViewDataSource protocol
 

@@ -27,7 +27,7 @@ class SeriesListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     var series: [Series] = []
     var viewModel: SeriesListViewModel?
-    
+    var seriesModel: SeriesModel?
     func fetchMarvelSeries(completion: @escaping (Result<[Series], Error>) -> Void) {
         let publicKey = "91876cd71efdc7d4d08056257a5dd7bf"
         let privateKey = "4b31ba5c27608c34ec0d47763e976f32001d59e6"
@@ -124,22 +124,15 @@ class SeriesListViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "vistaDeDetalle", sender: self)
     }
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == "vistaSerie" {
-    //            if let indexPath = tableView.indexPathForSelectedRow,
-    //               let destinationVC = segue.destination as? SeriesViewController {
-    //             // AQUÍ PASAMOS LOS DATOS QUE QUEREMOS A LA OTRA VISTA
-    //                destinationVC.dato = datos[indexPath.row]
-    //            }
-    //        }
-    //        if segue.identifier == "vistaAuthor" {
-    //            if let indexPath = tableView.indexPathForSelectedRow,
-    //               let destinationVC = segue.destination as? AuthorViewController {
-    //             // AQUÍ PASAMOS LOS DATOS QUE QUEREMOS A LA OTRA VISTA
-    //                destinationVC.dato = datos[indexPath.row]
-    //            }
-    //        }
-    //    }
+   
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+           if segue.identifier == "vistaDeDetalle" {
+               if let destinationVC = segue.destination as? SeriesListViewController,
+                  let selectedSeriesModel = seriesModel {
+                   destinationVC.seriesModel = selectedSeriesModel
+               }
+           }
+       }
 }
 

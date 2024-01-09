@@ -39,7 +39,7 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
         let privateKey = "4b31ba5c27608c34ec0d47763e976f32001d59e6"
         let baseURL = "https://gateway.marvel.com/v1/public/comics"
         
-        // Construir la URL con las claves y otros parámetros
+        // URL
         let timestamp = String(Date().timeIntervalSince1970)
         let hash = "\(timestamp)\(privateKey)\(publicKey)".md5
         let urlString = "\(baseURL)?apikey=\(publicKey)&ts=\(timestamp)&hash=\(hash)"
@@ -64,10 +64,10 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
                             return
                         }
                         
-                        // Acceder a la matriz de cómics dentro de la respuesta
+                        // Acceder a la matriz de cómics
                         let comics = marvelResponse.data.results
                         
-                        // Actualizar la interfaz de usuario en el hilo principal
+                        // Actualizar la interfaz de usuario
                         DispatchQueue.main.async {
                             completion(.success(comics))
                         }
@@ -142,10 +142,10 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
         if segue.identifier == "vistaDeDetalle" {
             if let indexPath = itemsTable.indexPathForSelectedRow,
                let destinationVC = segue.destination as? CharacterDetailViewController {
-                // Obtén el cómic seleccionado
+                //  cómic seleccionado
                 let selectedComic = comics[indexPath.row]
                 
-                // Asigna el cómic al CharacterDetailViewController
+                // Asignamos  el cómic al CharacterDetailViewController
                 destinationVC.comicModel = ComicsModel(title: selectedComic.title)
             }
         }
