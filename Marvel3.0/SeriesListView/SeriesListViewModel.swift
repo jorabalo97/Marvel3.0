@@ -7,7 +7,6 @@
 
 
 import Foundation
- 
 class SeriesListViewModel {
     var view: SeriesListViewController
     
@@ -17,6 +16,5 @@ class SeriesListViewModel {
          view: SeriesListViewController) {
         self.seriesListCoordinator = seriesListCoordinator
         self.view = view
-        
     }
 }

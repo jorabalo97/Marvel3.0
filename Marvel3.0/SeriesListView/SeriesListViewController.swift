@@ -22,9 +22,11 @@ class SeriesListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     struct Series: Codable {
-        let title: String?
-        let description: String?
-    }
+        var title: String?
+        var issueNumber: Int?
+       
+     }
+    
     var series: [Series] = []
     var viewModel: SeriesListViewModel?
     var seriesModel: SeriesModel?
@@ -114,7 +116,7 @@ class SeriesListViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = seriesTable.dequeueReusableCell(withIdentifier: "serieCell" , for : indexPath)
         let series = series[indexPath.row]
         cell.textLabel?.text = series.title
-        cell.detailTextLabel?.text = series.description
+        cell.detailTextLabel?.text = series.title
         cell.imageView?.image = UIImage(systemName: "film.circle.fill")
         return cell
     }
@@ -124,15 +126,14 @@ class SeriesListViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "vistaDeDetalle", sender: self)
     }
-   
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-           if segue.identifier == "vistaDeDetalle" {
-               if let destinationVC = segue.destination as? SeriesListViewController,
-                  let selectedSeriesModel = seriesModel {
-                   destinationVC.seriesModel = selectedSeriesModel
-               }
-           }
-       }
+        if segue.identifier == "vistaDeDetalle" {
+            if let destinationVC = segue.destination as? SeriesListViewController,
+               let selectedIndexPath = seriesTable.indexPathForSelectedRow {
+                let selectedSeriesModel = series[selectedIndexPath.row]
+                destinationVC.seriesModel = SeriesModel (title: selectedSeriesModel.title)
+            }
+        }
+    }
 }
-

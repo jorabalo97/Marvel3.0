@@ -70,7 +70,7 @@ class CharacterDetailViewController: UIViewController {
                 destinationVC.comicModel = ComicsModel(title: selectedComic.title)
             }
         }
-        if segue.identifier == "transicionDesdeDetalleAListaSeries" {
+        else if segue.identifier == "transicionDesdeDetalleAListaSeries" {
             if let destinationVC = segue.destination as? SeriesListViewController,
                let selectedSeries = sender as? SeriesModel {
                 destinationVC.seriesModel = SeriesModel(title: selectedSeries.title)
@@ -116,7 +116,7 @@ extension CharacterDetailViewController: CharacterDetailViewModelProtocol {
     func getCharacterDetails() {
         self.setData()
         self.comicsCollectionView.reloadData()
-    }
+        }
     
     func getError(_ error: String) {
         Utils().showAlertView(title: "Error", messsage: error)
@@ -138,12 +138,15 @@ extension CharacterDetailViewController: UICollectionViewDataSource, UICollectio
         return self.detailViewModel?.comicsDataModel?.data?.results?.count ?? 0
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
-        let selectedComic = self.detailViewModel?.comicsDataModel?.data?.results?[indexPath.row]
-
-      
-        performSegue(withIdentifier: "transicionDesdeDetalleALista", sender: selectedComic)
+        if isViewingComics {
+            let selectedComic = self.detailViewModel?.comicsDataModel?.data?.results?[indexPath.row]
+            performSegue(withIdentifier: "transicionDesdeDetalleALista", sender: selectedComic)
+        } else {
+            let selectedSeries = self.detailViewModel?.seriesDataModel?.data?.results?[indexPath.row]
+            performSegue(withIdentifier: "transicionDesdeDetalleAListaSeries", sender: selectedSeries)
+        }
     }
+    
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
