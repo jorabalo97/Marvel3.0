@@ -21,19 +21,25 @@ class ComicsCollectionViewCell: UICollectionViewCell {
         }
         
         Utils().setCornerRadius(view: self.thumbnailImage)
-               
-               if let comicModel = model as? ComicsModel {
-                   // Configuración para cómics
-                   self.titleLabel.text = comicModel.title
-                   if let issueNumber = comicModel.issueNumber {
-                       self.issueNumberLabel.text = "Issue number \(issueNumber)"
-                   }
-                   let urlString = (comicModel.thumbnail?.path ?? "") + "." + (comicModel.thumbnail?.imageExtension ?? "")
-                   self.thumbnailImage.downloadImageFrom(urlString: urlString, imageMode: .scaleAspectFill)
-               } else if let seriesModel = model as? SeriesModel {
-                  
-                   self.titleLabel.text = seriesModel.title
-                 
+        
+        if let comicModel = model as? ComicsModel {
+            // Configuración para cómics
+            self.titleLabel.text = comicModel.title
+            if let issueNumber = comicModel.issueNumber {
+                self.issueNumberLabel.text = "Issue number \(issueNumber)"
+            }
+            let urlString = (comicModel.thumbnail?.path ?? "") + "." + (comicModel.thumbnail?.imageExtension ?? "")
+            self.thumbnailImage.downloadImageFrom(urlString: urlString, imageMode: .scaleAspectFill)
+        } else if let seriesModel = model as? SeriesModel {
+            
+            self.titleLabel.text = seriesModel.title
+            let urlString = (seriesModel.thumbnail?.path ?? "") + "." + (seriesModel.thumbnail?.imageExtension ?? "")
+            self.thumbnailImage.downloadImageFrom(urlString: urlString, imageMode: .scaleAspectFill)
+            
+        }else if let storiesModel = model as? StoriesModel {
+            self.titleLabel.text = storiesModel.title
+            let urlString = (storiesModel.thumbnail?.path ?? "") + "." + (storiesModel.thumbnail?.imageExtension ?? "")
+            self.thumbnailImage.downloadImageFrom(urlString: urlString, imageMode: .scaleAspectFill)
                }
            }
        }

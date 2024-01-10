@@ -25,7 +25,8 @@ class CharacterDetailViewController: UIViewController {
     var characterModel: CharacterModel?
     var comicModel: ComicsModel?
     var series: [SeriesModel] = []
-  
+    var isViewingSeries: Bool = true
+    var isViewingStories: Bool = true 
     var segmentedControl: UISegmentedControl!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class CharacterDetailViewController: UIViewController {
         collectionViewHeightConstraint.constant = 300
                flowLayout.itemSize = CGSize(width: 170, height: 300)
                
-        segmentedControl = UISegmentedControl(items: ["Comics", "Series"])
+        segmentedControl = UISegmentedControl(items: ["Comics", "Series", "Stories"])
            segmentedControl.selectedSegmentIndex = 0
            segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
               
@@ -47,16 +48,34 @@ class CharacterDetailViewController: UIViewController {
         
     }
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        isViewingComics = sender.selectedSegmentIndex == 0
-        
-        descriptionLabel.text = isViewingComics ? "Comics" : "Series"
-
-        if isViewingComics {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            isViewingComics = true
+            isViewingSeries = false
+            isViewingStories = false
+            descriptionLabel.text = "Comics"
             detailViewModel?.getRequestCharacterComicsAPI()
-        } else {
+        case 1:
+            isViewingComics = false
+            isViewingSeries = true
+            isViewingStories = false
+            descriptionLabel.text = "Series"
             detailViewModel?.getRequestCharacterSeriesAPI()
+        case 2:
+            isViewingComics = false
+            isViewingSeries = false
+            isViewingStories = true
+            descriptionLabel.text = "Stories"
+            detailViewModel?.getRequestCharacterStoriesAPI()
+        default:
+            break
         }
     }
+    
+        
+        
+    
+
     
     
     
@@ -67,7 +86,7 @@ class CharacterDetailViewController: UIViewController {
                let selectedComic = sender as? Comic {
                 // Pasa el cómic seleccionado
                 destinationVC.comicModel = ComicsModel(title: selectedComic.title, issueNumber: selectedComic.issueNumber, thumbnail: selectedComic.thumbnail)
-                destinationVC.comicModel = ComicsModel(title: selectedComic.title)
+               
             }
         }
         else if segue.identifier == "transicionDesdeDetalleAListaSeries" {
@@ -76,6 +95,13 @@ class CharacterDetailViewController: UIViewController {
                 destinationVC.seriesModel = SeriesModel(title: selectedSeries.title)
             }
         }
+        else if segue.identifier == "transicionDesdeDetalleAListaStories" {
+            if let destinationVC = segue.destination as? StoriesListViewController,
+               let selectedStories = sender as? StoriesModel {
+                destinationVC.storiesModel = StoriesModel(title: selectedStories.title)
+            }
+        }
+
     }
 
     
@@ -85,8 +111,10 @@ class CharacterDetailViewController: UIViewController {
         self.detailViewModel?.delegate = self
         if isViewingComics {
               self.detailViewModel?.getRequestCharacterComicsAPI()
-          } else {
+          } else if isViewingSeries {
               self.detailViewModel?.getRequestCharacterSeriesAPI()
+          } else if isViewingStories {
+              self.detailViewModel?.getRequestCharacterStoriesAPI()
           }
     }
     
@@ -141,30 +169,39 @@ extension CharacterDetailViewController: UICollectionViewDataSource, UICollectio
         if isViewingComics {
             let selectedComic = self.detailViewModel?.comicsDataModel?.data?.results?[indexPath.row]
             performSegue(withIdentifier: "transicionDesdeDetalleALista", sender: selectedComic)
-        } else {
+        } else if isViewingSeries {
             let selectedSeries = self.detailViewModel?.seriesDataModel?.data?.results?[indexPath.row]
             performSegue(withIdentifier: "transicionDesdeDetalleAListaSeries", sender: selectedSeries)
+        } else if isViewingStories {
+            let selectedStories = self.detailViewModel?.storiesDataModel?.data?.results?[indexPath.row]
+            performSegue(withIdentifier: "transicionDesdeDetalleAListaStories", sender: selectedStories)
         }
     }
-    
 
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryboardUtils.CellIdentifier.comicCardCell, for: indexPath) as? ComicsCollectionViewCell {
-            if isViewingComics {
-                       cell.renderDataToCell(self.detailViewModel?.comicsDataModel?.data?.results?[indexPath.row])
-                   } else {
-                       cell.renderDataToCell(self.detailViewModel?.seriesDataModel?.data?.results?[indexPath.row])
-                   }
-                   return cell
-               }
-        
+            let model: Any?
+
+                 if isViewingComics {
+                     model = self.detailViewModel?.comicsDataModel?.data?.results?[indexPath.row]
+                 } else if isViewingSeries {
+                     model = self.detailViewModel?.seriesDataModel?.data?.results?[indexPath.row]
+                 } else if isViewingStories {
+                     model = self.detailViewModel?.storiesDataModel?.data?.results?[indexPath.row]
+                 } else {
+                     model = nil
+                 }
+
+                 cell.renderDataToCell(model)
+                 return cell        }
         return UICollectionViewCell()
     }
 }
-
-extension CharacterDetailViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 170, height: 300)
+    
+    extension CharacterDetailViewController: UICollectionViewDelegateFlowLayout {
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: 170, height: 300)
+        }
     }
-}
+
