@@ -42,6 +42,10 @@
 		B190375E2B4E923F0048845B /* StoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B190375D2B4E923F0048845B /* StoriesListViewModel.swift */; };
 		B19037602B4E956E0048845B /* StoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B190375F2B4E956E0048845B /* StoriesModel.swift */; };
 		B19037622B4EA82A0048845B /* StoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19037612B4EA82A0048845B /* StoriesCollectionViewCell.swift */; };
+		B19037652B5005C70048845B /* EventsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19037642B5005C70048845B /* EventsListViewController.swift */; };
+		B19037672B5005ED0048845B /* EventsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19037662B5005ED0048845B /* EventsListViewModel.swift */; };
+		B19037692B5006440048845B /* EventsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19037682B5006440048845B /* EventsListCoordinator.swift */; };
+		B190376B2B5006F10048845B /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B190376A2B5006F10048845B /* EventsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +105,10 @@
 		B190375D2B4E923F0048845B /* StoriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesListViewModel.swift; sourceTree = "<group>"; };
 		B190375F2B4E956E0048845B /* StoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesModel.swift; sourceTree = "<group>"; };
 		B19037612B4EA82A0048845B /* StoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		B19037642B5005C70048845B /* EventsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListViewController.swift; sourceTree = "<group>"; };
+		B19037662B5005ED0048845B /* EventsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListViewModel.swift; sourceTree = "<group>"; };
+		B19037682B5006440048845B /* EventsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListCoordinator.swift; sourceTree = "<group>"; };
+		B190376A2B5006F10048845B /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +159,7 @@
 		B13823CF2B2C5EF900F7E5C6 /* Marvel3.0 */ = {
 			isa = PBXGroup;
 			children = (
+				B19037632B5005AE0048845B /* EventsListView */,
 				B19037582B4E92110048845B /* StoriesListView */,
 				B190374D2B4BFE610048845B /* SeriesListView */,
 				B177585F2B3462BD002C4595 /* ComicsListView */,
@@ -244,6 +253,7 @@
 				B13824262B2C61F800F7E5C6 /* ComicsModel.swift */,
 				B19037492B4B75B10048845B /* SeriesModel.swift */,
 				B190375F2B4E956E0048845B /* StoriesModel.swift */,
+				B190376A2B5006F10048845B /* EventsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,6 +317,16 @@
 				B190375D2B4E923F0048845B /* StoriesListViewModel.swift */,
 			);
 			path = StoriesListView;
+			sourceTree = "<group>";
+		};
+		B19037632B5005AE0048845B /* EventsListView */ = {
+			isa = PBXGroup;
+			children = (
+				B19037642B5005C70048845B /* EventsListViewController.swift */,
+				B19037662B5005ED0048845B /* EventsListViewModel.swift */,
+				B19037682B5006440048845B /* EventsListCoordinator.swift */,
+			);
+			path = EventsListView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -446,9 +466,11 @@
 				B13824252B2C61E100F7E5C6 /* CharacterViewModel.swift in Sources */,
 				B13824212B2C61C300F7E5C6 /* CharacterViewController.swift in Sources */,
 				B19037532B4BFE8A0048845B /* SeriesListCoordinator.swift in Sources */,
+				B19037652B5005C70048845B /* EventsListViewController.swift in Sources */,
 				B13824272B2C61F800F7E5C6 /* ComicsModel.swift in Sources */,
 				B138241F2B2C61AF00F7E5C6 /* CharacterModel.swift in Sources */,
 				B13824322B2C64EA00F7E5C6 /* Utils.swift in Sources */,
+				B19037672B5005ED0048845B /* EventsListViewModel.swift in Sources */,
 				B13824382B2C65E800F7E5C6 /* StoryboardUtils.swift in Sources */,
 				B17758612B3462E4002C4595 /* ComicListViewModel.swift in Sources */,
 				B19037622B4EA82A0048845B /* StoriesCollectionViewCell.swift in Sources */,
@@ -457,12 +479,14 @@
 				B138242F2B2C626100F7E5C6 /* MarvelAPIService.swift in Sources */,
 				B190375C2B4E922F0048845B /* StoriesListViewController.swift in Sources */,
 				B19037512B4BFE7C0048845B /* SeriesListViewController.swift in Sources */,
+				B190376B2B5006F10048845B /* EventsModel.swift in Sources */,
 				B17758672B346349002C4595 /* HashExtension.swift in Sources */,
 				B13823D32B2C5EF900F7E5C6 /* SceneDelegate.swift in Sources */,
 				B17758652B346313002C4595 /* ComicListCoordinator.swift in Sources */,
 				B190375E2B4E923F0048845B /* StoriesListViewModel.swift in Sources */,
 				B190374A2B4B75B10048845B /* SeriesModel.swift in Sources */,
 				B190375A2B4E92220048845B /* StoriesListCoordinator.swift in Sources */,
+				B19037692B5006440048845B /* EventsListCoordinator.swift in Sources */,
 				B190374F2B4BFE700048845B /* SeriesListViewModel.swift in Sources */,
 				B13824292B2C621600F7E5C6 /* CharacterDetailViewController.swift in Sources */,
 				B138242B2B2C623500F7E5C6 /* ComicsCollectionViewCell.swift in Sources */,

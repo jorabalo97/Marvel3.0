@@ -18,6 +18,7 @@ protocol CharacterDetailViewModelProtocol: AnyObject {
 class CharacterDetailViewModel {
     
     // Variables
+    var eventsDataModel: ComicsDataModel?
     var storiesDataModel: ComicsDataModel?
     var seriesDataModel: ComicsDataModel?
     var comicsDataModel: ComicsDataModel?
@@ -119,6 +120,28 @@ class CharacterDetailViewModel {
                 if statuscode == 200, let responseData = jsonData {
                     let jsonDecoder = JSONDecoder()
                     self.storiesDataModel = try? jsonDecoder.decode(ComicsDataModel.self, from: responseData)
+                    self.delegate?.getCharacterDetails()
+                } else {
+                    self.delegate?.getErrorCodeFromAPIResponse()
+                }
+            }
+        })
+    }
+    func getRequestCharacterEventsAPI() {
+        let ts = String(Int(Date().timeIntervalSince1970))
+        let hash = Utils.md5Hash("\(ts)\(privateKey)\(publicKey)")
+        let url = "\(baseUrl)characters/\(self.charcterId ?? "")/series?ts=\(ts)&apikey=\(publicKey)&hash=\(hash)"
+        
+        MarvelAPIService.init().getRequest(url: url, completion: { jsonData, error, statuscode in
+            if let error = error {
+                self.delegate?.getError(error.localizedDescription)
+                return
+            }
+            
+            if let statuscode = statuscode {
+                if statuscode == 200, let responseData = jsonData {
+                    let jsonDecoder = JSONDecoder()
+                    self.seriesDataModel = try? jsonDecoder.decode(ComicsDataModel.self, from: responseData)
                     self.delegate?.getCharacterDetails()
                 } else {
                     self.delegate?.getErrorCodeFromAPIResponse()

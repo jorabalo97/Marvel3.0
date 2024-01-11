@@ -27,6 +27,7 @@ class CharacterDetailViewController: UIViewController {
     var series: [SeriesModel] = []
     var isViewingSeries: Bool = true
     var isViewingStories: Bool = true 
+    var isViewingEvents: Bool = true
     var segmentedControl: UISegmentedControl!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +37,10 @@ class CharacterDetailViewController: UIViewController {
         collectionViewHeightConstraint.constant = 300
                flowLayout.itemSize = CGSize(width: 170, height: 300)
                
-        segmentedControl = UISegmentedControl(items: ["Comics", "Series", "Stories"])
+        segmentedControl = UISegmentedControl(items: ["Comics", "Series", "Stories", "Events" ])
            segmentedControl.selectedSegmentIndex = 0
+        
+     
            segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
               
         view.addSubview(segmentedControl)
@@ -53,23 +56,44 @@ class CharacterDetailViewController: UIViewController {
             isViewingComics = true
             isViewingSeries = false
             isViewingStories = false
+            isViewingEvents = false
             descriptionLabel.text = "Comics"
             detailViewModel?.getRequestCharacterComicsAPI()
         case 1:
             isViewingComics = false
             isViewingSeries = true
             isViewingStories = false
-            descriptionLabel.text = "Series"
+            isViewingEvents = false
+            updateTitleLabel(for: "Series")
+            updatedescriptionLabel(for: "Series")
             detailViewModel?.getRequestCharacterSeriesAPI()
         case 2:
             isViewingComics = false
             isViewingSeries = false
             isViewingStories = true
-            descriptionLabel.text = "Stories"
+            isViewingEvents = false
+            updateTitleLabel(for: "Stories")
+            updatedescriptionLabel(for: "Stories")
             detailViewModel?.getRequestCharacterStoriesAPI()
+        case 3:
+            isViewingComics = false
+            isViewingSeries = false
+            isViewingStories = false
+            isViewingEvents = true
+            updateTitleLabel(for: "Events")
+            updatedescriptionLabel(for:"Events")
+            detailViewModel?.getRequestCharacterEventsAPI()
         default:
             break
         }
+        func updateTitleLabel(for category: String) {
+              descriptionLabel.text = category
+              titleLabel.text = category
+          }
+        func updatedescriptionLabel(for category: String) {
+              descriptionLabel.text = category
+              titleLabel.text = category
+          }
     }
     
         
@@ -115,6 +139,8 @@ class CharacterDetailViewController: UIViewController {
               self.detailViewModel?.getRequestCharacterSeriesAPI()
           } else if isViewingStories {
               self.detailViewModel?.getRequestCharacterStoriesAPI()
+          }else if isViewingEvents {
+              self.detailViewModel?.getRequestCharacterEventsAPI()
           }
     }
     
@@ -175,6 +201,9 @@ extension CharacterDetailViewController: UICollectionViewDataSource, UICollectio
         } else if isViewingStories {
             let selectedStories = self.detailViewModel?.storiesDataModel?.data?.results?[indexPath.row]
             performSegue(withIdentifier: "transicionDesdeDetalleAListaStories", sender: selectedStories)
+        }else if isViewingEvents {
+            let selectedEvents = self.detailViewModel?.eventsDataModel?.data?.results?[indexPath.row]
+            performSegue(withIdentifier: "transicionDesdeDetalleAListaEvents", sender: selectedEvents)
         }
     }
 
@@ -189,11 +218,15 @@ extension CharacterDetailViewController: UICollectionViewDataSource, UICollectio
                      model = self.detailViewModel?.seriesDataModel?.data?.results?[indexPath.row]
                  } else if isViewingStories {
                      model = self.detailViewModel?.storiesDataModel?.data?.results?[indexPath.row]
-                 } else {
+                 } else if isViewingEvents {
+                     model = self.detailViewModel?.eventsDataModel?.data?.results?[indexPath.row]
+                 }else {
                      model = nil
                  }
+            let viewType: String = ""
 
-                 cell.renderDataToCell(model)
+                   cell.viewType = viewType
+            cell.renderDataToCell(model, viewType: "")
                  return cell        }
         return UICollectionViewCell()
     }
