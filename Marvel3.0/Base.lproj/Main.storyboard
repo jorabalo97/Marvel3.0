@@ -177,13 +177,6 @@
                                     <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="fbz-dF-pxR">
                                         <rect key="frame" x="0.0" y="509.5" width="414" height="340"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Qb-OX-IYc">
-                                                <rect key="frame" x="10" y="0.0" width="100" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Ek-bu-Sug">
                                                 <rect key="frame" x="0.0" y="50" width="414" height="303"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -261,14 +254,28 @@
                                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="bAo-vC-6Qb"/>
                                                 </connections>
                                             </collectionView>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6hZ-fI-9kO">
+                                                <rect key="frame" x="55" y="0.0" width="299" height="32"/>
+                                                <segments>
+                                                    <segment title="Comics"/>
+                                                    <segment title="Series"/>
+                                                    <segment title="Stories"/>
+                                                    <segment title="Events"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="segmentedControl:" destination="Y6W-OH-hqX" eventType="valueChanged" id="JJK-KI-24W"/>
+                                                </connections>
+                                            </segmentedControl>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="6hZ-fI-9kO" firstAttribute="leading" secondItem="fbz-dF-pxR" secondAttribute="leading" constant="55" id="0iR-yy-VD5"/>
                                             <constraint firstAttribute="trailing" secondItem="8Ek-bu-Sug" secondAttribute="trailing" id="3TU-9w-Gfj"/>
+                                            <constraint firstAttribute="trailing" secondItem="6hZ-fI-9kO" secondAttribute="trailing" constant="60" id="6ag-UZ-R8T"/>
                                             <constraint firstItem="8Ek-bu-Sug" firstAttribute="leading" secondItem="fbz-dF-pxR" secondAttribute="leading" id="7m1-UL-fzX"/>
                                             <constraint firstAttribute="bottom" secondItem="8Ek-bu-Sug" secondAttribute="bottom" constant="-13" id="CGs-f1-VSJ"/>
                                             <constraint firstAttribute="height" constant="340" id="SAq-UQ-36h"/>
-                                            <constraint firstItem="8Ek-bu-Sug" firstAttribute="top" secondItem="6Qb-OX-IYc" secondAttribute="bottom" constant="20" id="zgG-aX-INP"/>
+                                            <constraint firstItem="8Ek-bu-Sug" firstAttribute="top" secondItem="6hZ-fI-9kO" secondAttribute="bottom" constant="19" id="klF-0r-389"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -453,7 +460,7 @@
         <!--Stories List View Controller-->
         <scene sceneID="FnU-EX-EmI">
             <objects>
-                <viewController id="mnF-k5-qXe" customClass="StoriesListViewController" customModule="Marvel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mnF-k5-qXe" customClass="StoriesListViewController" customModule="Marvel3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5U7-CK-cj2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -509,7 +516,7 @@
         <!--Events List View Controller-->
         <scene sceneID="WNm-p9-ulK">
             <objects>
-                <viewController id="rls-x7-dwz" customClass="EventsListViewController" customModule="Marvel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rls-x7-dwz" customClass="EventsListViewController" customModule="Marvel3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6At-QU-44B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

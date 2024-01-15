@@ -34,23 +34,10 @@ class CharacterDetailViewController: UIViewController {
         
         self.detailViewModel?.getRequestCharacterComicsAPI()
         
-        collectionViewHeightConstraint.constant = 300
-               flowLayout.itemSize = CGSize(width: 170, height: 300)
-               
-        segmentedControl = UISegmentedControl(items: ["Comics", "Series", "Stories", "Events" ])
-           segmentedControl.selectedSegmentIndex = 0
-        
-     
-           segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
-              
-        view.addSubview(segmentedControl)
-        detailViewModel?.getRequestCharacterComicsAPI()
-      
-        collectionViewHeightConstraint.constant = 300
-        flowLayout.itemSize = CGSize(width: 170, height: 300)
+       
         
     }
-    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+    @objc func segmentedControl(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
             isViewingComics = true
