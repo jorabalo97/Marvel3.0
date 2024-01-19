@@ -40,7 +40,7 @@ extension CharacterViewController {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // Puedes agregar lógica adicional si es necesario cuando se presiona el botón de búsqueda.
+       
     }
 }
 

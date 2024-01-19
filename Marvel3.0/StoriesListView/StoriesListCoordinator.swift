@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class StoriesListCoordinator {
+ 
     weak var navigationController: UINavigationController?
     init(navigationController: UINavigationController?) {
         self.navigationController = navigationController
@@ -23,11 +24,14 @@ class StoriesListCoordinator {
            selectedCharacter = character
        }
 
-    func build() -> UIViewController {
-        let storiesListViewController = StoriesListViewController()
+    func build() -> UIViewController { 
+      
+        let storiesListViewController = StoriesListViewController(storiesListCoordinator: self, viewModel: nil)
         let storiesListViewModel = StoriesListViewModel(storiesListCoordinator: self, view: storiesListViewController)
-        storiesListViewController.viewModel = storiesListViewModel
+           storiesListViewController.viewModel = storiesListViewModel
         
+                
+       
         return storiesListViewController
     }
 }

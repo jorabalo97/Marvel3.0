@@ -30,3 +30,4 @@ class SeriesListCoordinator {
         return seriesListViewController
     }
 }
+

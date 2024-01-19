@@ -6,8 +6,31 @@
 //
 
 import Foundation
-struct StoriesModel: Decodable {
+struct Stories: Decodable {
+    var Id: Int
     var title: String?
     var issueNumber: Int?
     var thumbnail: ThumbnailUrl?
 }
+struct StoriesDataModel: Decodable  {
+    
+    
+    var data: StoriesResultModel?
+}
+
+struct StoriesResultModel: Decodable  {
+    
+    
+    var results: [StoriesModel]?
+    
+}
+struct StoriesModel: Decodable  {
+    let id: Int
+    var title: String?
+    var issueNumber: Int?
+    var thumbnail: ThumbnailUrl?
+    
+}
+
+
+

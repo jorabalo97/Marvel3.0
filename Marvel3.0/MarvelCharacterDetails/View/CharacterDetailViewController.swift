@@ -20,6 +20,7 @@ class CharacterDetailViewController: UIViewController {
     @IBOutlet var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var flowLayout: UICollectionViewFlowLayout!
    
+    
     var isViewingComics: Bool = true
     var detailViewModel: CharacterDetailViewModel?
     var characterModel: CharacterModel?
@@ -38,6 +39,7 @@ class CharacterDetailViewController: UIViewController {
         
     }
     @objc func segmentedControl(_ sender: UISegmentedControl) {
+        
         switch sender.selectedSegmentIndex {
         case 0:
             isViewingComics = true
@@ -73,6 +75,7 @@ class CharacterDetailViewController: UIViewController {
         default:
             break
         }
+        self.comicsCollectionView.reloadData()
         func updateTitleLabel(for category: String) {
               descriptionLabel.text = category
               titleLabel.text = category
@@ -107,9 +110,10 @@ class CharacterDetailViewController: UIViewController {
             }
         }
         else if segue.identifier == "transicionDesdeDetalleAListaStories" {
+            let charcterId = detailViewModel?.charcterId
             if let destinationVC = segue.destination as? StoriesListViewController,
-               let selectedStories = sender as? StoriesModel {
-                destinationVC.storiesModel = StoriesModel(title: selectedStories.title)
+               let selectedStories = sender as? Stories {
+                destinationVC.storiesModel = Stories( Id: selectedStories.Id, title: selectedStories.title)
             }
         }
 
@@ -156,7 +160,7 @@ extension CharacterDetailViewController: CharacterDetailViewModelProtocol {
 
     func getCharacterDetails() {
         self.setData()
-        self.comicsCollectionView.reloadData()
+       self.comicsCollectionView.reloadData()
         }
     
     func getError(_ error: String) {
@@ -210,10 +214,9 @@ extension CharacterDetailViewController: UICollectionViewDataSource, UICollectio
                  }else {
                      model = nil
                  }
-            let viewType: String = ""
-
-                   cell.viewType = viewType
-            cell.renderDataToCell(model, viewType: "")
+            let viewType: String  = "Comics"
+                   cell.viewType = ""
+            cell.renderDataToCell(model, viewType: viewType)
                  return cell        }
         return UICollectionViewCell()
     }

@@ -17,18 +17,44 @@ class EventsListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     struct MarvelData: Codable {
-        let results: [Event]
+        let results: [Events]
     }
 
-    struct Event: Codable {
+    struct Events: Codable {
         var title: String?
         var issueNumber: Int?  // Cambiado para que coincida con la estructura de la segunda clase
     }
 
-    var events: [Event] = []
+    var events: [Events] = []
     var viewModel: EventsListViewModel?
+    var totalItems = 0
+    var itempsPage = 20
+    var currentPage = 0
+    var isLoading = false
+    func loadMoreEvent() {
+        guard !isLoading else {
+            return
+        }
+        isLoading = true
+        currentPage += 1
+        fetchMarvelEvents{ [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let newEvents):
+                // Agregar las nuevas historias a la lista existente
+                self.events += newEvents
+                self.updateUI(with: self.events)
+                
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+            
+            self.isLoading = false
+        }
+    }
 
-    func fetchMarvelEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
+    func fetchMarvelEvents(completion: @escaping (Result<[Events], Error>) -> Void) {
         let publicKey = "91876cd71efdc7d4d08056257a5dd7bf"
         let privateKey = "4b31ba5c27608c34ec0d47763e976f32001d59e6"
         let baseURL = "https://gateway.marvel.com/v1/public/events"
@@ -79,8 +105,17 @@ class EventsListViewController: UIViewController, UITableViewDelegate, UITableVi
             completion(.failure(error))
         }
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+           let offsetY = scrollView.contentOffset.y
+           let contentHeight = scrollView.contentSize.height
+           
+           // Verificar si el usuario ha llegado al final de la tabla y cargar más historias
+           if offsetY > contentHeight - scrollView.frame.size.height {
+               loadMoreEvent()
+           }
+       }
 
-    func updateUI(with events: [Event]) {
+    func updateUI(with events: [Events]) {
         self.events = events
         DispatchQueue.main.async {
             self.eventsTable.reloadData()
