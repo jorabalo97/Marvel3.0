@@ -6,13 +6,11 @@
 //
 //  Created by Jorge Abalo Dieste on 21/12/23.
 //
+
 import UIKit
 
 class ComicListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    
     var comicModel: ComicsModel?
-    
     var selectedComicFromDetail: Comic?
     var comics: [Comic] = []
     
@@ -29,7 +27,6 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
     struct Comic: Codable {
         let title: String?
         let variantDescription: String?
-        
     }
     
     var viewModel: ComicListViewModel?
@@ -93,7 +90,7 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBOutlet weak var itemsTable: UITableView!
-    
+    //Revisar
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -150,8 +147,4 @@ class ComicListViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-    
-    
-    
-    
 }

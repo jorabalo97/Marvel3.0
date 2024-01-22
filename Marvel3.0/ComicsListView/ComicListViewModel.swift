@@ -6,12 +6,12 @@
 //
 
 import Foundation
- 
+
 class ComicListViewModel {
     var view: ComicListViewController
     
     private let comicListCoordinator: ComicListCoordinator
-
+    
     init(comicListCoordinator: ComicListCoordinator,
          view: ComicListViewController) {
         self.comicListCoordinator = comicListCoordinator

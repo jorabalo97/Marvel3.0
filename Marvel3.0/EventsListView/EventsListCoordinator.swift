@@ -23,11 +23,8 @@ class EventsListCoordinator {
     }
 
     func build() -> UIViewController {
-        let eventsListViewController = EventsListViewController()
-        let eventsListViewModel = EventsListViewModel(eventsListCoordinator: self, view: eventsListViewController)
-        eventsListViewController.viewModel = eventsListViewModel
-
+        let eventsListViewModel = EventsListViewModel(eventsListCoordinator: self)
+        let eventsListViewController = EventsListViewController(viewModel: eventsListViewModel)
         return eventsListViewController
     }
 }
-

@@ -19,9 +19,9 @@ class SeriesListCoordinator {
     }
     
     func configure(with character: CharacterModel?) {
-           selectedCharacter = character
-       }
-
+        selectedCharacter = character
+    }
+    
     func build() -> UIViewController {
         let seriesListViewController = SeriesListViewController()
         let seriesListViewModel = SeriesListViewModel(seriesListCoordinator: self, view: seriesListViewController)

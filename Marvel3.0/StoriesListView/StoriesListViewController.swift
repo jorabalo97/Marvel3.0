@@ -42,7 +42,7 @@ class StoriesListViewController: UIViewController, UITableViewDelegate, UITableV
         let urlString = "\(baseURL)?apikey=\(publicKey)&ts=\(timestamp)&hash=\(hash)"
         print("URL: \(urlString)")
         
-        if let url = URL(string: urlString) {
+        if let url = buildURL() {
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let error = error {
                     print("Error: \(error)")
@@ -141,3 +141,19 @@ class StoriesListViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
 }
+
+private extension StoriesListViewController {
+    func buildURL() -> URL? {
+        let publicKey = "91876cd71efdc7d4d08056257a5dd7bf"
+        let privateKey = "4b31ba5c27608c34ec0d47763e976f32001d59e6"
+        let baseURL = "https://gateway.marvel.com/v1/public/stories"
+        
+        // Construir la URL con las claves y otros parámetros
+        let timestamp = String(Date().timeIntervalSince1970)
+        let hash = "\(timestamp)\(privateKey)\(publicKey)".md5
+        let urlString = "\(baseURL)?apikey=\(publicKey)&ts=\(timestamp)&hash=\(hash)"
+        print("URL: \(urlString)")
+        return URL(string: urlString)
+    }
+}
+

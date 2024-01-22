@@ -2,23 +2,20 @@
 //  CharacterViewController.swift
 //  Marvel3.0
 //
-//  Created by Jorge Abalo Dieste 
+//  Created by Jorge Abalo Dieste
 //
-
-
 
 import UIKit
 
 class CharacterViewController: UIViewController, UISearchBarDelegate  {
     
-    @IBOutlet weak var SearchBar: UISearchBar!
-    @IBOutlet weak var characterTableView: UITableView!
+    @IBOutlet private weak var SearchBar: UISearchBar!
+    @IBOutlet private weak var characterTableView: UITableView!
     var charcterViewModel = CharacterViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         SearchBar.delegate = self
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,7 +26,6 @@ class CharacterViewController: UIViewController, UISearchBarDelegate  {
         charcterViewModel.delegate = self
         charcterViewModel.getCharacterList()
     }
-    
 }
 
 
@@ -38,7 +34,7 @@ extension CharacterViewController {
         // Llama al método de búsqueda en tu ViewModel cuando el texto de búsqueda cambia.
         charcterViewModel.searchCharacters(with: searchText)
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
        
     }
@@ -70,9 +66,10 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if let viewControllerInstance = StoryboardUtils.getCharacterDetailViewController() {
-            viewControllerInstance.characterModel = self.charcterViewModel.characterDataModel?.data?.results?[indexPath.row]
+            if let characterModel = self.charcterViewModel.characterDataModel?.data?.results?[indexPath.row] {
+                viewControllerInstance.setCharacterModel(characterModel)
+            }
             viewControllerInstance.detailViewModel = CharacterDetailViewModel.init(id: "\(self.charcterViewModel.characterDataModel?.data?.results?[indexPath.row].id ?? 0)")
             self.navigationController?.present(viewControllerInstance, animated: true, completion: nil)
             
@@ -80,10 +77,8 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-
 //ViewModel Protocol
 extension CharacterViewController: characterViewModelProtocol {
-    
     
     func fetchListOfMarvelCharacters() {
         self.characterTableView.reloadData()
@@ -96,5 +91,4 @@ extension CharacterViewController: characterViewModelProtocol {
     func getErrorCodeFromAPIResponse() {
         Utils().showAlertView(title: ErrorString.error.rawValue, messsage: ErrorString.serverMsg.rawValue)
     }
-    
 }
