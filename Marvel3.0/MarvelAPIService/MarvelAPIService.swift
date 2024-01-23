@@ -2,7 +2,7 @@
 //  MarvelAPIService.swift
 //  Marvel3.0
 //
-//  Created by Jorge Abalo Dieste 
+//  Created by Jorge Abalo Dieste
 //
 
 
@@ -11,7 +11,6 @@ import Foundation
 import SystemConfiguration
 
 var baseUrl = "https://gateway.marvel.com/v1/public/"
-
 
 class MarvelAPIService: NSObject {
     
@@ -68,8 +67,5 @@ class InternetConnectCheckClass {
         let ret = (isReachable && !needsConnection)
         
         return ret
-        
     }
-    
-    
 }

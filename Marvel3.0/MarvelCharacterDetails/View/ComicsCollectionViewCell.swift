@@ -2,7 +2,7 @@
 //  ComicsCollectionViewCell.swift
 //  Marvel3.0
 //
-//  Created by Jorge Abalo Dieste 
+//  Created by Jorge Abalo Dieste
 //
 
 
@@ -10,9 +10,9 @@ import UIKit
 
 class ComicsCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var issueNumberLabel: UILabel!
-    @IBOutlet weak var thumbnailImage: MarvelImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var issueNumberLabel: UILabel!
+    @IBOutlet private weak var thumbnailImage: MarvelImageView!
     //Render data
         var viewType: String = ""
         func renderDataToCell(_ model: Any?, viewType: String ) {

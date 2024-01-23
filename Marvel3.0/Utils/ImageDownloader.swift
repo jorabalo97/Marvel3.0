@@ -2,7 +2,7 @@
 //  ImageDownloader.swift
 //  Marvel3.0
 //
-//  Created by Jorge Abalo Dieste 
+//  Created by Jorge Abalo Dieste
 //
 
 //Descargar imagenes desde una URL y almacenamiento en cache.
@@ -10,7 +10,6 @@
 import Foundation
 import UIKit
 import CryptoKit
-
 
 class MarvelImageView: UIImageView {
     

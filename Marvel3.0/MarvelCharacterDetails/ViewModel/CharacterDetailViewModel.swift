@@ -2,7 +2,7 @@
 //  CharacterDetailViewModel.swift
 //  Marvel3.0
 //
-//  Created by Jorge Abalo Dieste 
+//  Created by Jorge Abalo Dieste
 //
 
 import Foundation
@@ -55,7 +55,6 @@ class CharacterDetailViewModel {
             }
         })
     }
-    
     
     //Request de los comics de la API
     func getRequestCharacterComicsAPI() {

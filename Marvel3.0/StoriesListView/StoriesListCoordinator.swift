@@ -24,14 +24,10 @@ class StoriesListCoordinator {
            selectedCharacter = character
        }
 
-    func build() -> UIViewController { 
-      
-        let storiesListViewController = StoriesListViewController(storiesListCoordinator: self, viewModel: nil)
+    func build() -> UIViewController {
+        let storiesListViewController = StoriesListViewController()
         let storiesListViewModel = StoriesListViewModel(storiesListCoordinator: self, view: storiesListViewController)
-           storiesListViewController.viewModel = storiesListViewModel
-        
-                
-       
+        storiesListViewController.viewModel = storiesListViewModel
         return storiesListViewController
     }
 }

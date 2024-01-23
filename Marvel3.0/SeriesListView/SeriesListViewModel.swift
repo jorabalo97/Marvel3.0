@@ -11,7 +11,7 @@ class SeriesListViewModel {
     var view: SeriesListViewController
     
     private let seriesListCoordinator: SeriesListCoordinator
-
+    
     init(seriesListCoordinator: SeriesListCoordinator,
          view: SeriesListViewController) {
         self.seriesListCoordinator = seriesListCoordinator

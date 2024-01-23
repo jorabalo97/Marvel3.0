@@ -2,10 +2,8 @@
 //  StoryboardUtils.swift
 //  Marvel3.0
 //
-//  Created by Jorge Abalo Dieste 
+//  Created by Jorge Abalo Dieste
 //
-
-
 
 import UIKit
 
@@ -38,5 +36,4 @@ class StoryboardUtils {
     class func getNavigationController() -> UINavigationController? {
         return getStoryboard().instantiateViewController(withIdentifier: ViewControllerIdentifier.navigationController) as? UINavigationController
     }
-    
 }
