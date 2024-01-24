@@ -113,7 +113,7 @@ class CharacterDetailViewController: UIViewController {
             let charcterId = detailViewModel?.charcterId
             if let destinationVC = segue.destination as? StoriesListViewController,
                let selectedStories = sender as? Stories {
-                destinationVC.storiesModel = Stories( Id: selectedStories.Id, title: selectedStories.title)
+                destinationVC.storiesModel = StoriesModel(id: selectedStories.Id, title: selectedStories.title)
             }
         }
 
@@ -130,7 +130,7 @@ class CharacterDetailViewController: UIViewController {
               self.detailViewModel?.getRequestCharacterSeriesAPI()
           } else if isViewingStories {
               self.detailViewModel?.getRequestCharacterStoriesAPI()
-          }else if isViewingEvents {
+          } else if isViewingEvents {
               self.detailViewModel?.getRequestCharacterEventsAPI()
           }
     }

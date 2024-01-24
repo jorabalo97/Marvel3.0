@@ -26,7 +26,7 @@ class StoriesListCoordinator {
 
     func build() -> UIViewController { 
       
-        let storiesListViewController = StoriesListViewController(storiesListCoordinator: self, viewModel: nil)
+        let storiesListViewController = StoriesListViewController(nibName: nil, bundle: nil)
         let storiesListViewModel = StoriesListViewModel(storiesListCoordinator: self, view: storiesListViewController)
            storiesListViewController.viewModel = storiesListViewModel
         

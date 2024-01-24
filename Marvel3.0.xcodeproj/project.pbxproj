@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81A944352B61202100E16C43 /* MarvelPlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81A944342B61202100E16C43 /* MarvelPlist.plist */; };
 		B13823D12B2C5EF900F7E5C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13823D02B2C5EF900F7E5C6 /* AppDelegate.swift */; };
 		B13823D32B2C5EF900F7E5C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13823D22B2C5EF900F7E5C6 /* SceneDelegate.swift */; };
 		B13823D82B2C5EF900F7E5C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B13823D62B2C5EF900F7E5C6 /* Main.storyboard */; };
@@ -27,7 +28,6 @@
 		B13824322B2C64EA00F7E5C6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13824312B2C64EA00F7E5C6 /* Utils.swift */; };
 		B13824382B2C65E800F7E5C6 /* StoryboardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13824372B2C65E800F7E5C6 /* StoryboardUtils.swift */; };
 		B138243A2B2C660400F7E5C6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13824392B2C660400F7E5C6 /* ImageDownloader.swift */; };
-		B138243E2B2C673B00F7E5C6 /* MarvelPlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = B138243D2B2C673B00F7E5C6 /* MarvelPlist.plist */; };
 		B17758612B3462E4002C4595 /* ComicListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17758602B3462E4002C4595 /* ComicListViewModel.swift */; };
 		B17758632B3462F2002C4595 /* ComicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17758622B3462F2002C4595 /* ComicListViewController.swift */; };
 		B17758652B346313002C4595 /* ComicListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17758642B346312002C4595 /* ComicListCoordinator.swift */; };
@@ -64,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		81A944342B61202100E16C43 /* MarvelPlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelPlist.plist; sourceTree = "<group>"; };
 		B13823CD2B2C5EF900F7E5C6 /* Marvel3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marvel3.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B13823D02B2C5EF900F7E5C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B13823D22B2C5EF900F7E5C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		B13824312B2C64EA00F7E5C6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B13824372B2C65E800F7E5C6 /* StoryboardUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardUtils.swift; sourceTree = "<group>"; };
 		B13824392B2C660400F7E5C6 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
-		B138243D2B2C673B00F7E5C6 /* MarvelPlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MarvelPlist.plist; path = "../../../../Downloads/MarvelApp-main-2/MarvelApp/Common/MarvelPlist.plist"; sourceTree = "<group>"; };
 		B17758602B3462E4002C4595 /* ComicListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicListViewModel.swift; sourceTree = "<group>"; };
 		B17758622B3462F2002C4595 /* ComicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicListViewController.swift; sourceTree = "<group>"; };
 		B17758642B346312002C4595 /* ComicListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicListCoordinator.swift; sourceTree = "<group>"; };
@@ -155,6 +155,7 @@
 		B13823CF2B2C5EF900F7E5C6 /* Marvel3.0 */ = {
 			isa = PBXGroup;
 			children = (
+				81A944342B61202100E16C43 /* MarvelPlist.plist */,
 				B19037632B5005AE0048845B /* EventsListView */,
 				B19037582B4E92110048845B /* StoriesListView */,
 				B190374D2B4BFE610048845B /* SeriesListView */,
@@ -274,7 +275,6 @@
 		B13824302B2C64D500F7E5C6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				B138243D2B2C673B00F7E5C6 /* MarvelPlist.plist */,
 				B13824312B2C64EA00F7E5C6 /* Utils.swift */,
 				B13824372B2C65E800F7E5C6 /* StoryboardUtils.swift */,
 				B13824392B2C660400F7E5C6 /* ImageDownloader.swift */,
@@ -427,9 +427,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81A944352B61202100E16C43 /* MarvelPlist.plist in Resources */,
 				B13823DD2B2C5EFB00F7E5C6 /* LaunchScreen.storyboard in Resources */,
 				B13823DA2B2C5EFB00F7E5C6 /* Assets.xcassets in Resources */,
-				B138243E2B2C673B00F7E5C6 /* MarvelPlist.plist in Resources */,
 				B13823D82B2C5EF900F7E5C6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,6 +673,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -700,6 +701,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
